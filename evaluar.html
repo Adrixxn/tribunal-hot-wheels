@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación Oficial · Tribunal Hot Wheels</title>
+<style>
+:root{
+  --panel:rgba(255,255,255,.92);
+  --text:#242424;
+  --muted:#777;
+  --accent:#b47b1c;
+  --accent-soft:#fff3d7;
+  --border:rgba(0,0,0,.08);
+  --shadow:0 18px 55px rgba(0,0,0,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f7f4ef;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
+#siteFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:white}
+.floating-actions{position:fixed;right:18px;bottom:18px;z-index:20;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.pill{border:1px solid var(--border);background:var(--panel);backdrop-filter:blur(14px);box-shadow:var(--shadow);border-radius:999px;padding:10px 14px;font-weight:800;font-size:.86rem;color:var(--text)}
+.share-btn{border:0;background:#1f1f1f;color:white;min-height:52px;padding:0 20px;border-radius:18px;font-weight:900;box-shadow:var(--shadow);cursor:pointer;display:none}
+.share-btn.show{display:block}
+.share-btn:hover{transform:translateY(-2px)}
+.modal-backdrop{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.5);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.open{display:flex}
+.modal{width:min(620px,100%);max-height:88vh;overflow:auto;background:white;border-radius:28px;padding:26px;box-shadow:0 35px 120px rgba(0,0,0,.28)}
+.modal h1{margin:0 0 8px;font-size:clamp(1.8rem,5vw,2.7rem);line-height:1}
+.modal p{color:var(--muted);line-height:1.65}
+.summary{margin:20px 0;padding:18px;border-radius:20px;background:var(--accent-soft);border:1px solid rgba(180,123,28,.18)}
+.summary strong{font-size:2rem;color:var(--accent)}
+.breakdown{display:grid;gap:9px;margin-top:16px}
+.row{display:flex;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid var(--border);font-size:.92rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.primary,.secondary{min-height:48px;padding:0 18px;border-radius:14px;font-weight:900;cursor:pointer}
+.primary{border:0;background:#1f1f1f;color:white}
+.secondary{border:1px solid var(--border);background:white;color:var(--text)}
+.note{font-size:.78rem;color:var(--muted);margin-top:14px}
+@media(max-width:640px){.floating-actions{right:10px;bottom:10px}.pill{font-size:.74rem}.share-btn{min-height:48px;padding:0 15px}.modal{padding:20px;border-radius:22px}}
+</style>
+</head>
+<body>
+<iframe id="siteFrame" src="./index.html" title="Tribunal de los Hot Wheels"></iframe>
+
+<div class="floating-actions">
+  <div class="pill" id="statusPill">⚖️ Evaluación en curso · 0/100</div>
+  <button class="share-btn" id="shareBtn" type="button">Enviar veredicto 💛</button>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div style="font-size:3rem">💛</div>
+    <h1 id="modalTitle">Sentencia lista</h1>
+    <p>Este es el resumen de la evaluación guardada en este dispositivo. Si está correcto, puedes enviárselo a Adrián por WhatsApp.</p>
+    <div class="summary">
+      <div>Puntaje total</div>
+      <strong id="modalScore">0/100</strong>
+      <div id="factCount" style="margin-top:6px;color:#6f5528"></div>
+    </div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="actions">
+      <button class="primary" id="whatsappBtn" type="button">Enviar por WhatsApp</button>
+      <button class="secondary" id="closeBtn" type="button">Seguir evaluando</button>
+    </div>
+    <div class="note">WhatsApp abrirá con el mensaje preparado. Tú eliges a qué contacto enviarlo.</div>
+  </div>
+</div>
+
+<script>
+const labels={
+  evidencias:'Evidencias válidas',
+  trato:'Trato y respeto',
+  acciones:'Buenas acciones',
+  argumentacion:'Argumentación',
+  coherencia:'Coherencia',
+  responsabilidad:'Responsabilidad',
+  redflags:'Ausencia de red flags',
+  presentacion:'Presentación del caso'
+};
+const max={evidencias:30,trato:15,acciones:15,argumentacion:10,coherencia:10,responsabilidad:10,redflags:5,presentacion:5};
+const pill=document.getElementById('statusPill');
+const shareBtn=document.getElementById('shareBtn');
+const modal=document.getElementById('modalBackdrop');
+const modalScore=document.getElementById('modalScore');
+const breakdown=document.getElementById('breakdown');
+const factCount=document.getElementById('factCount');
+let lastData={scores:{},facts:{},total:0,confirmed:0};
+
+function readState(){
+  let scores={}; let facts={};
+  try{scores=JSON.parse(localStorage.getItem('hotwheels-scores')||'{}')||{}}catch(e){}
+  try{facts=JSON.parse(localStorage.getItem('hotwheels-facts')||'{}')||{}}catch(e){}
+  const total=Object.entries(max).reduce((sum,[key,limit])=>{
+    const value=Math.max(0,Math.min(limit,Number(scores[key]||0)));
+    return sum+value;
+  },0);
+  const confirmed=Object.values(facts).filter(Boolean).length;
+  lastData={scores,facts,total,confirmed};
+  pill.textContent=`⚖️ Evaluación en curso · ${total}/100`;
+  shareBtn.classList.toggle('show', total>0 || confirmed>0);
+}
+
+function buildSummary(){
+  readState();
+  modalScore.textContent=`${lastData.total}/100`;
+  factCount.textContent=`Hechos confirmados por mi amor: ${lastData.confirmed}/10`;
+  breakdown.innerHTML='';
+  Object.entries(max).forEach(([key,limit])=>{
+    const value=Math.max(0,Math.min(limit,Number(lastData.scores[key]||0)));
+    const row=document.createElement('div');
+    row.className='row';
+    row.innerHTML=`<span>${labels[key]}</span><strong>${value}/${limit}</strong>`;
+    breakdown.appendChild(row);
+  });
+}
+
+function makeMessage(){
+  buildSummary();
+  const lines=[
+    '🏎️ *VEREDICTO OFICIAL DEL TRIBUNAL DE LOS HOT WHEELS*',
+    '',
+    `Puntaje total: *${lastData.total}/100*`,
+    `Hechos confirmados: *${lastData.confirmed}/10*`,
+    '',
+    '📋 *Detalle por criterio:*'
+  ];
+  Object.entries(max).forEach(([key,limit])=>{
+    const value=Math.max(0,Math.min(limit,Number(lastData.scores[key]||0)));
+    lines.push(`• ${labels[key]}: ${value}/${limit}`);
+  });
+  lines.push('', '⚖️ Sentencia emitida por mi amor.', '💛 Los Hot Wheels quedan a criterio de su corazón.');
+  return lines.join('\n');
+}
+
+shareBtn.addEventListener('click',()=>{buildSummary();modal.classList.add('open')});
+document.getElementById('closeBtn').addEventListener('click',()=>modal.classList.remove('open'));
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+document.getElementById('whatsappBtn').addEventListener('click',()=>{
+  const message=makeMessage();
+  const url='https://wa.me/?text='+encodeURIComponent(message);
+  window.open(url,'_blank','noopener,noreferrer');
+});
+window.addEventListener('storage',readState);
+setInterval(readState,700);
+readState();
+</script>
+</body>
+</html>
