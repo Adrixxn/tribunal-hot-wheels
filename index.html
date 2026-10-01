@@ -1,0 +1,4643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tribunal Oficial de los Hot Wheels 🏎️</title>
+
+<style>
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+    --bg: #f7f4ef;
+    --bg-soft: #ffffff;
+    --panel: rgba(255,255,255,.78);
+    --panel-solid: #ffffff;
+
+    --text: #252525;
+    --muted: #767676;
+
+    --border: rgba(0,0,0,.08);
+
+    --accent: #e1ad54;
+    --accent-dark: #b47b1c;
+    --accent-soft: #fff3d7;
+
+    --rose: #d98787;
+    --green: #6ba67a;
+    --red: #d36363;
+    --blue: #6a89b8;
+
+    --shadow:
+        0 18px 60px rgba(42, 30, 12, .10);
+
+    --radius: 26px;
+}
+
+body.dark {
+    --bg: #121212;
+    --bg-soft: #181818;
+    --panel: rgba(28,28,28,.82);
+    --panel-solid: #1d1d1d;
+
+    --text: #f5f2eb;
+    --muted: #aaa59c;
+
+    --border: rgba(255,255,255,.08);
+
+    --accent-soft: rgba(225,173,84,.12);
+
+    --shadow:
+        0 18px 70px rgba(0,0,0,.32);
+}
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 20% 0%,
+            rgba(225,173,84,.10),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(217,135,135,.08),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+
+    transition:
+        background .35s ease,
+        color .35s ease;
+
+    overflow-x: hidden;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+}
+
+::selection {
+    background: var(--accent);
+    color: #fff;
+}
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+.container {
+    width: min(1180px, calc(100% - 32px));
+    margin: auto;
+}
+
+.kicker {
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    font-size: .72rem;
+    font-weight: 800;
+    color: var(--accent-dark);
+}
+
+.section-title {
+    margin: 8px 0 10px;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1;
+}
+
+.section-subtitle {
+    color: var(--muted);
+    max-width: 720px;
+    line-height: 1.7;
+    margin-top: 0;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: color-mix(
+        in srgb,
+        var(--bg) 82%,
+        transparent
+    );
+
+    backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+    min-height: 66px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-weight: 900;
+}
+
+.brand-mark {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    background: var(--panel);
+    color: var(--text);
+
+    transition: .2s ease;
+}
+
+.icon-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    padding: 75px 0 55px;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 8vw, 7.2rem);
+    line-height: .88;
+    margin: 15px 0 24px;
+    letter-spacing: -.07em;
+}
+
+.hero h1 span {
+    color: var(--accent-dark);
+}
+
+.hero-copy {
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 670px;
+}
+
+.hero-actions {
+    margin-top: 30px;
+
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    border: none;
+
+    min-height: 50px;
+
+    padding: 0 22px;
+
+    border-radius: 16px;
+
+    font-weight: 800;
+
+    transition:
+        transform .2s ease,
+        opacity .2s ease,
+        box-shadow .2s ease;
+}
+
+.primary-btn {
+    background: var(--text);
+    color: var(--bg-soft);
+    box-shadow: var(--shadow);
+}
+
+.secondary-btn {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+    transform: translateY(-3px);
+}
+
+.hero-card {
+    border: 1px solid var(--border);
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--panel-solid),
+            var(--accent-soft)
+        );
+
+    border-radius: 34px;
+
+    padding: 28px;
+
+    box-shadow: var(--shadow);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.case-number {
+    font-size: .72rem;
+    letter-spacing: .16em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.case-title {
+    font-size: 2rem;
+    font-weight: 900;
+
+    margin: 18px 0 4px;
+}
+
+.case-subtitle {
+    color: var(--muted);
+}
+
+.case-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+}
+
+.case-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin: 13px 0;
+
+    font-size: .92rem;
+}
+
+.case-row span:first-child {
+    color: var(--muted);
+}
+
+.case-seal {
+    margin-top: 25px;
+
+    border: 1px dashed var(--accent-dark);
+
+    padding: 14px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    font-weight: 800;
+
+    transform: rotate(-1deg);
+}
+
+
+/* =========================================================
+   SCORE PANEL
+========================================================= */
+
+.score-zone {
+    padding: 20px 0 60px;
+}
+
+.score-panel {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 35px;
+    align-items: center;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 30px;
+
+    padding: 26px;
+
+    box-shadow: var(--shadow);
+}
+
+.score-ring {
+    --score: 0;
+
+    width: 170px;
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            var(--accent)
+            calc(var(--score) * 1%),
+
+            color-mix(
+                in srgb,
+                var(--text) 8%,
+                transparent
+            ) 0
+        );
+
+    display: grid;
+    place-items: center;
+
+    position: relative;
+}
+
+.score-ring::after {
+    content: "";
+
+    position: absolute;
+    inset: 12px;
+
+    border-radius: 50%;
+
+    background: var(--bg-soft);
+}
+
+.score-ring-inner {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+}
+
+.score-number {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: .9;
+}
+
+.score-total-label {
+    color: var(--muted);
+    font-size: .8rem;
+}
+
+.live-verdict {
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    font-weight: 900;
+
+    margin-bottom: 8px;
+}
+
+.live-detail {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CAR TRACK
+========================================================= */
+
+.race-track-wrap {
+    margin-top: 25px;
+}
+
+.track-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    font-size: .8rem;
+
+    color: var(--muted);
+
+    margin-bottom: 8px;
+}
+
+.race-track {
+    height: 62px;
+
+    position: relative;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 40px,
+            rgba(0,0,0,.07) 40px 42px
+        ),
+        var(--accent-soft);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+}
+
+.finish-line {
+    position: absolute;
+
+    right: 25px;
+    top: 0;
+    bottom: 0;
+
+    width: 12px;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            #222 0 6px,
+            #fff 6px 12px
+        );
+}
+
+.car {
+    position: absolute;
+
+    left: 0;
+
+    top: 50%;
+
+    transform:
+        translate(
+            0,
+            -50%
+        );
+
+    font-size: 2.5rem;
+
+    z-index: 5;
+
+    transition:
+        left .7s cubic-bezier(.2,.9,.2,1.15),
+        transform .2s ease;
+
+    user-select: none;
+
+    cursor: pointer;
+}
+
+.car:hover {
+    transform:
+        translate(
+            0,
+            -50%
+        )
+        scale(1.12);
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.content-section {
+    padding: 75px 0;
+}
+
+.soft-section {
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(225,173,84,.035),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   CRITERIOS
+========================================================= */
+
+.criteria-grid {
+    margin-top: 35px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.criterion-card {
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    border-radius: 26px;
+
+    padding: 22px;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+.criterion-card:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--accent) 35%,
+            var(--border)
+        );
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.07);
+}
+
+.criterion-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+
+    align-items: flex-start;
+}
+
+.criterion-icon {
+    width: 46px;
+    height: 46px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 16px;
+
+    background: var(--accent-soft);
+
+    font-size: 1.35rem;
+
+    flex: 0 0 auto;
+}
+
+.criterion-title-wrap {
+    flex: 1;
+}
+
+.criterion-title {
+    margin: 0;
+
+    font-size: 1.05rem;
+}
+
+.criterion-max {
+    margin-top: 5px;
+
+    font-size: .8rem;
+    color: var(--muted);
+}
+
+.criterion-summary {
+    margin: 18px 0;
+
+    line-height: 1.65;
+
+    color: var(--muted);
+
+    font-size: .94rem;
+}
+
+.score-control {
+    display: grid;
+
+    grid-template-columns:
+        44px 1fr 44px 62px;
+
+    gap: 8px;
+
+    align-items: center;
+}
+
+.score-control button {
+    height: 44px;
+
+    border: 1px solid var(--border);
+
+    background: var(--bg-soft);
+
+    color: var(--text);
+
+    border-radius: 13px;
+
+    font-size: 1.2rem;
+}
+
+.score-control input[type="range"] {
+    width: 100%;
+
+    accent-color: var(--accent-dark);
+}
+
+.criterion-score {
+    height: 44px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 13px;
+
+    background: var(--accent-soft);
+
+    font-weight: 900;
+}
+
+.criterion-actions {
+    margin-top: 16px;
+
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.small-btn {
+    border: 1px solid var(--border);
+
+    background: transparent;
+
+    color: var(--text);
+
+    padding: 9px 13px;
+
+    border-radius: 12px;
+
+    font-size: .82rem;
+    font-weight: 750;
+}
+
+.small-btn:hover {
+    background: var(--accent-soft);
+}
+
+
+/* =========================================================
+   PACTO
+========================================================= */
+
+.pact-card {
+    margin-top: 35px;
+
+    border-radius: 32px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--panel-solid),
+            var(--accent-soft)
+        );
+
+    border: 1px solid var(--border);
+
+    padding: clamp(24px,5vw,50px);
+
+    box-shadow: var(--shadow);
+}
+
+.pact-people {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 25px;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.person-box {
+    padding: 22px;
+
+    border-radius: 22px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+}
+
+.person-icon {
+    font-size: 2.3rem;
+}
+
+.person-name {
+    font-size: 1.25rem;
+    font-weight: 900;
+
+    margin-top: 8px;
+}
+
+.person-status {
+    color: var(--muted);
+
+    font-size: .85rem;
+
+    margin-top: 6px;
+}
+
+.pact-heart {
+    font-size: 2.6rem;
+
+    animation:
+        heartBeat 1.5s infinite;
+}
+
+@keyframes heartBeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+.pact-text {
+    max-width: 800px;
+
+    margin: 32px auto;
+
+    text-align: center;
+
+    line-height: 1.8;
+
+    font-size: 1.08rem;
+}
+
+.pact-actions {
+    display: flex;
+    justify-content: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+.accept-btn {
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    color: var(--text);
+
+    border-radius: 14px;
+
+    padding: 12px 18px;
+
+    font-weight: 800;
+}
+
+.accept-btn.accepted {
+    background: var(--green);
+    color: #fff;
+
+    border-color: transparent;
+}
+
+.seal {
+    margin: 30px auto 0;
+
+    max-width: 450px;
+
+    text-align: center;
+
+    border: 2px dashed var(--accent-dark);
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    font-weight: 900;
+
+    opacity: .35;
+
+    transform: rotate(-2deg);
+
+    transition: .4s ease;
+}
+
+.seal.active {
+    opacity: 1;
+
+    transform:
+        rotate(-2deg)
+        scale(1.03);
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline {
+    margin-top: 40px;
+
+    position: relative;
+
+    max-width: 850px;
+}
+
+.timeline::before {
+    content: "";
+
+    position: absolute;
+
+    left: 21px;
+
+    top: 10px;
+    bottom: 10px;
+
+    width: 2px;
+
+    background: var(--border);
+}
+
+.timeline-item {
+    position: relative;
+
+    padding-left: 70px;
+
+    margin-bottom: 34px;
+}
+
+.timeline-dot {
+    position: absolute;
+
+    left: 10px;
+    top: 0;
+
+    width: 24px;
+    height: 24px;
+
+    border-radius: 50%;
+
+    background: var(--bg-soft);
+
+    border: 6px solid var(--accent);
+}
+
+.timeline-label {
+    font-size: .75rem;
+
+    color: var(--accent-dark);
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: .08em;
+}
+
+.timeline-title {
+    font-size: 1.2rem;
+
+    font-weight: 900;
+
+    margin: 5px 0 8px;
+}
+
+.timeline-text {
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   TESTIMONIOS / HECHOS
+========================================================= */
+
+.fact-board {
+    margin-top: 35px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0,1fr));
+
+    gap: 14px;
+}
+
+.fact {
+    padding: 20px;
+
+    border-radius: 22px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    min-width: 0;
+}
+
+.fact-number {
+    color: var(--accent-dark);
+
+    font-weight: 900;
+
+    font-size: .75rem;
+}
+
+.fact-text {
+    margin: 10px 0 18px;
+
+    line-height: 1.55;
+}
+
+.confirm-fact {
+    width: 100%;
+
+    min-height: 42px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: var(--bg-soft);
+
+    color: var(--text);
+
+    font-weight: 750;
+}
+
+.confirm-fact.confirmed {
+    background: var(--green);
+
+    color: white;
+
+    border-color: transparent;
+}
+
+
+/* =========================================================
+   CONTRAINTERROGATORIO
+========================================================= */
+
+.interrogation {
+    margin-top: 35px;
+
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+
+    gap: 22px;
+}
+
+.question-deck,
+.answer-panel {
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    border-radius: 26px;
+
+    padding: 25px;
+}
+
+.question-counter {
+    font-size: .75rem;
+    color: var(--muted);
+
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+
+.question-text {
+    font-size: clamp(1.45rem,4vw,2.3rem);
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    margin: 24px 0;
+}
+
+.answer-title {
+    color: var(--accent-dark);
+
+    font-size: .8rem;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: .1em;
+}
+
+.answer-text {
+    font-size: 1.07rem;
+
+    line-height: 1.8;
+
+    margin-top: 16px;
+}
+
+.question-actions {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 25px;
+}
+
+
+/* =========================================================
+   RED FLAGS
+========================================================= */
+
+.redflags-grid {
+    margin-top: 35px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap: 14px;
+}
+
+.flag-card {
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    border-radius: 22px;
+
+    padding: 20px;
+}
+
+.flag-icon {
+    font-size: 1.7rem;
+}
+
+.flag-title {
+    font-weight: 900;
+
+    margin: 10px 0 6px;
+}
+
+.flag-status {
+    font-size: .84rem;
+
+    color: var(--muted);
+
+    line-height: 1.6;
+}
+
+.flag-badge {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 7px 10px;
+
+    border-radius: 100px;
+
+    background: var(--accent-soft);
+
+    font-size: .75rem;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   VEREDICTO
+========================================================= */
+
+.verdict-box {
+    margin-top: 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--panel-solid),
+            var(--accent-soft)
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 34px;
+
+    padding: clamp(28px,6vw,60px);
+
+    text-align: center;
+
+    box-shadow: var(--shadow);
+}
+
+.verdict-emoji {
+    font-size: 4.5rem;
+}
+
+.verdict-score {
+    font-size: clamp(3.5rem,10vw,7rem);
+
+    line-height: .9;
+
+    margin: 18px 0;
+
+    font-weight: 950;
+
+    letter-spacing: -.06em;
+}
+
+.verdict-title {
+    font-size: clamp(1.6rem,4vw,3rem);
+
+    font-weight: 900;
+}
+
+.verdict-copy {
+    margin: 15px auto 0;
+
+    max-width: 700px;
+
+    color: var(--muted);
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0,0,0,.55);
+
+    backdrop-filter:
+        blur(9px);
+
+    z-index: 500;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 18px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity .25s ease;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.modal {
+    width: min(650px,100%);
+
+    max-height: 88vh;
+
+    overflow: auto;
+
+    border-radius: 28px;
+
+    padding: 28px;
+
+    background: var(--bg-soft);
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 35px 120px rgba(0,0,0,.28);
+
+    transform:
+        translateY(18px)
+        scale(.98);
+
+    transition: transform .25s ease;
+}
+
+.modal-overlay.open .modal {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.modal-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 20px;
+}
+
+.modal-close {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    background: var(--panel);
+
+    color: var(--text);
+
+    flex: 0 0 auto;
+}
+
+.modal h2 {
+    margin-top: 6px;
+}
+
+.defense-list {
+    margin: 22px 0;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+.defense-list li {
+    padding: 13px 0;
+
+    border-bottom: 1px solid var(--border);
+
+    line-height: 1.6;
+}
+
+.defense-list li::before {
+    content: "✓";
+
+    display: inline-grid;
+    place-items: center;
+
+    width: 24px;
+    height: 24px;
+
+    margin-right: 10px;
+
+    border-radius: 50%;
+
+    background: var(--accent-soft);
+
+    color: var(--accent-dark);
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+
+    right: 22px;
+    bottom: 22px;
+
+    z-index: 900;
+
+    max-width: 350px;
+
+    background: var(--text);
+
+    color: var(--bg-soft);
+
+    border-radius: 16px;
+
+    padding: 14px 17px;
+
+    box-shadow: var(--shadow);
+
+    transform: translateY(120px);
+
+    opacity: 0;
+
+    transition: .3s ease;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+.confetti {
+    position: fixed;
+
+    width: 10px;
+    height: 16px;
+
+    z-index: 1000;
+
+    top: -20px;
+
+    pointer-events: none;
+
+    animation:
+        fallConfetti linear forwards;
+}
+
+@keyframes fallConfetti {
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(900deg);
+    }
+}
+
+
+/* =========================================================
+   FINAL SENTENCE
+========================================================= */
+
+.sentence-card {
+    text-align: center;
+}
+
+.big-heart {
+    font-size: 4rem;
+
+    margin-bottom: 5px;
+}
+
+.hotwheels-request {
+    margin-top: 24px;
+
+    padding: 20px;
+
+    background: var(--accent-soft);
+
+    border-radius: 18px;
+
+    font-size: 1.15rem;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 35px 0 55px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: .84rem;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 820px) {
+
+    .hero-grid,
+    .score-panel,
+    .interrogation {
+        grid-template-columns: 1fr;
+    }
+
+    .criteria-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fact-board,
+    .redflags-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .score-ring {
+        margin: auto;
+    }
+
+    .pact-people {
+        grid-template-columns: 1fr;
+    }
+
+    .pact-heart {
+        transform: rotate(90deg);
+    }
+
+    .brand-text {
+        display: none;
+    }
+
+    .hero {
+        padding-top: 45px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .container {
+        width:
+            min(
+                100% - 20px,
+                1180px
+            );
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .criterion-card {
+        padding: 17px;
+    }
+
+    .score-control {
+        grid-template-columns:
+            40px 1fr 40px 54px;
+    }
+
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    .topbar,
+    button,
+    .race-track-wrap,
+    .criterion-actions,
+    .pact-actions {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .criterion-card,
+    .pact-card,
+    .verdict-box {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="topbar">
+
+    <div class="container topbar-inner">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                🏎️
+            </div>
+
+            <div class="brand-text">
+                Tribunal de los Hot Wheels
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+
+            <button
+                class="icon-btn"
+                id="soundBtn"
+                title="Sonido"
+                type="button"
+            >
+                🔊
+            </button>
+
+            <button
+                class="icon-btn"
+                id="themeBtn"
+                title="Cambiar tema"
+                type="button"
+            >
+                🌙
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="container hero-grid">
+
+        <div>
+
+            <div class="kicker">
+                Expediente oficial · evaluación extraordinaria
+            </div>
+
+            <h1>
+                ¿Buen hombre
+                <span>o perro?</span>
+            </h1>
+
+            <p class="hero-copy">
+                Se presenta ante mi amor una defensa formal,
+                completamente seria y para nada motivada por
+                el deseo de obtener Hot Wheels.
+                <br><br>
+                El acusado reconoce errores iniciales,
+                presenta hechos, acepta interrogatorio
+                y se somete voluntariamente al criterio
+                más importante de todos:
+                <strong>el de ella.</strong>
+            </p>
+
+            <div class="hero-actions">
+
+                <button
+                    class="primary-btn"
+                    id="startTrial"
+                    type="button"
+                >
+                    Abrir audiencia ⚖️
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    id="jumpPact"
+                    type="button"
+                >
+                    Ver el pacto 🤝
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <article class="hero-card">
+
+            <div class="case-number">
+                Expediente HW-001
+            </div>
+
+            <div class="case-title">
+                Mi amor vs. Adrián
+            </div>
+
+            <div class="case-subtitle">
+                Tribunal Supremo de los Carritos
+            </div>
+
+            <div class="case-divider"></div>
+
+
+            <div class="case-row">
+                <span>Acusación</span>
+                <strong>“Es un perro”</strong>
+            </div>
+
+            <div class="case-row">
+                <span>Defensa</span>
+                <strong>“Permítame explicar”</strong>
+            </div>
+
+            <div class="case-row">
+                <span>Jueza</span>
+                <strong>Mi amor</strong>
+            </div>
+
+            <div class="case-row">
+                <span>Premio solicitado</span>
+                <strong>Hot Wheels 🏎️</strong>
+            </div>
+
+            <div class="case-seal">
+                CASO ABIERTO
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SCORE
+===================================================== -->
+
+<section class="score-zone" id="evaluation">
+
+    <div class="container">
+
+        <div class="score-panel">
+
+            <div
+                class="score-ring"
+                id="scoreRing"
+            >
+
+                <div class="score-ring-inner">
+
+                    <div
+                        class="score-number"
+                        id="totalScore"
+                    >
+                        0
+                    </div>
+
+                    <div class="score-total-label">
+                        / 100 puntos
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    class="live-verdict"
+                    id="liveVerdict"
+                >
+                    La audiencia todavía no comienza.
+                </div>
+
+                <div
+                    class="live-detail"
+                    id="liveDetail"
+                >
+                    Mi amor tiene control absoluto del puntaje.
+                    La defensa no puede autoaprobarse.
+                </div>
+
+
+                <div class="race-track-wrap">
+
+                    <div class="track-header">
+
+                        <span>
+                            🐶 Alegación inicial
+                        </span>
+
+                        <span>
+                            Hot Wheels 🏁
+                        </span>
+
+                    </div>
+
+                    <div class="race-track">
+
+                        <div
+                            class="car"
+                            id="hotWheelCar"
+                            title="No me toques tantas veces..."
+                        >
+                            🏎️
+                        </div>
+
+                        <div class="finish-line"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CRITERIOS
+===================================================== -->
+
+<section class="content-section">
+
+    <div class="container">
+
+        <div class="kicker">
+            Evaluación oficial
+        </div>
+
+        <h2 class="section-title">
+            Los 8 criterios
+        </h2>
+
+        <p class="section-subtitle">
+            Cada criterio puede ser calificado únicamente
+            por la evaluadora. La defensa presenta el caso;
+            mi amor decide cuánto vale.
+        </p>
+
+        <div
+            class="criteria-grid"
+            id="criteriaGrid"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PACTO
+===================================================== -->
+
+<section
+    class="content-section soft-section"
+    id="pactSection"
+>
+
+    <div class="container">
+
+        <div class="kicker">
+            Pieza central del expediente
+        </div>
+
+        <h2 class="section-title">
+            El pacto
+        </h2>
+
+        <p class="section-subtitle">
+            No somos novios. Pero hubo una conversación
+            seria y ambos aceptamos las mismas condiciones.
+        </p>
+
+
+        <div class="pact-card">
+
+            <div class="pact-people">
+
+                <div class="person-box">
+
+                    <div class="person-icon">
+                        🙋🏻‍♂️
+                    </div>
+
+                    <div class="person-name">
+                        Adrián
+                    </div>
+
+                    <div
+                        class="person-status"
+                        id="adrianStatus"
+                    >
+                        Pendiente de reconocimiento
+                    </div>
+
+                </div>
+
+
+                <div class="pact-heart">
+                    🤝
+                </div>
+
+
+                <div class="person-box">
+
+                    <div class="person-icon">
+                        🤍
+                    </div>
+
+                    <div class="person-name">
+                        Mi amor
+                    </div>
+
+                    <div
+                        class="person-status"
+                        id="micaStatus"
+                    >
+                        Pendiente de reconocimiento
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="pact-text">
+
+                Ninguno quiere ser
+                <strong>una segunda opción.</strong>
+
+                <br><br>
+
+                El acuerdo es tratarnos con respeto,
+                no hacer sentir al otro como “uno más”
+                y actuar de forma coherente con el lugar
+                especial que voluntariamente decidimos
+                darnos.
+
+                <br><br>
+
+                El pacto fue aceptado por los dos,
+                en persona, y ambos tenemos la
+                responsabilidad de cumplirlo.
+
+            </div>
+
+
+            <div class="pact-actions">
+
+                <button
+                    class="accept-btn"
+                    id="adrianAccept"
+                    type="button"
+                >
+                    Adrián reconoce el pacto
+                </button>
+
+                <button
+                    class="accept-btn"
+                    id="micaAccept"
+                    type="button"
+                >
+                    Mi amor reconoce el pacto
+                </button>
+
+            </div>
+
+
+            <div
+                class="seal"
+                id="pactSeal"
+            >
+                🤝 PACTO MUTUAMENTE RECONOCIDO
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TIMELINE
+===================================================== -->
+
+<section class="content-section">
+
+    <div class="container">
+
+        <div class="kicker">
+            Reconstrucción de hechos
+        </div>
+
+        <h2 class="section-title">
+            Lo que realmente pasó
+        </h2>
+
+        <p class="section-subtitle">
+            No se presenta una versión perfecta.
+            Se presenta una versión coherente:
+            hubo una conducta inicial que generó una
+            mala impresión y después hubo una decisión
+            consciente de cambiarla.
+        </p>
+
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    Etapa 01
+                </div>
+
+                <div class="timeline-title">
+                    La mala primera impresión
+                </div>
+
+                <div class="timeline-text">
+                    Al comienzo hablaba y coqueteaba
+                    con otras chicas. Eso hizo que mi amor
+                    tuviera razones para pensar:
+                    “este man es un perro”.
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    Etapa 02
+                </div>
+
+                <div class="timeline-title">
+                    Lo reconocí
+                </div>
+
+                <div class="timeline-text">
+                    No intento borrar esa parte.
+                    Cuando ella me explicó que se había
+                    sentido incómoda, admití que había
+                    cometido un error y le pedí disculpas.
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    Etapa 03
+                </div>
+
+                <div class="timeline-title">
+                    Hablamos en serio
+                </div>
+
+                <div class="timeline-text">
+                    Ella dejó claro que no quería sentirse
+                    como una segunda opción ni como una más.
+                    Lo entendí.
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    Etapa 04
+                </div>
+
+                <div class="timeline-title">
+                    Nació el pacto
+                </div>
+
+                <div class="timeline-text">
+                    Los dos aceptamos exactamente la misma
+                    condición: respeto, prioridad emocional
+                    y no tratar al otro como reemplazable.
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    Etapa 05
+                </div>
+
+                <div class="timeline-title">
+                    La conducta cambió
+                </div>
+
+                <div class="timeline-text">
+                    Desde ese acuerdo dejé la conducta
+                    que había causado el problema.
+                    No porque me obligaran,
+                    sino porque acepté el pacto.
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    Situación actual
+                </div>
+
+                <div class="timeline-title">
+                    Cumplimiento
+                </div>
+
+                <div class="timeline-text">
+                    Desde que existe el pacto,
+                    lo he respetado completamente
+                    y ella también ha cumplido su parte.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HECHOS VERIFICABLES
+===================================================== -->
+
+<section class="content-section soft-section">
+
+    <div class="container">
+
+        <div class="kicker">
+            Mi amor puede decidir
+        </div>
+
+        <h2 class="section-title">
+            ¿Esto pasó o no pasó?
+        </h2>
+
+        <p class="section-subtitle">
+            No necesitamos capturas si la propia evaluadora
+            vivió los hechos. Ella puede confirmarlos
+            directamente.
+        </p>
+
+
+        <div
+            class="fact-board"
+            id="factBoard"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTRAINTERROGATORIO
+===================================================== -->
+
+<section class="content-section">
+
+    <div class="container">
+
+        <div class="kicker">
+            Derecho de la fiscalía
+        </div>
+
+        <h2 class="section-title">
+            Contrainterrogatorio
+        </h2>
+
+        <p class="section-subtitle">
+            Porque una buena defensa también debe soportar
+            preguntas incómodas.
+        </p>
+
+
+        <div class="interrogation">
+
+            <div class="question-deck">
+
+                <div
+                    class="question-counter"
+                    id="questionCounter"
+                ></div>
+
+                <div
+                    class="question-text"
+                    id="questionText"
+                ></div>
+
+                <div class="question-actions">
+
+                    <button
+                        class="primary-btn"
+                        id="revealAnswer"
+                        type="button"
+                    >
+                        Ver respuesta
+                    </button>
+
+                    <button
+                        class="secondary-btn"
+                        id="nextQuestion"
+                        type="button"
+                    >
+                        Siguiente →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="answer-panel">
+
+                <div class="answer-title">
+                    Respuesta de la defensa
+                </div>
+
+                <div
+                    class="answer-text"
+                    id="answerText"
+                >
+                    La respuesta permanece sellada
+                    hasta que mi amor decida verla.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RED FLAGS
+===================================================== -->
+
+<section class="content-section soft-section">
+
+    <div class="container">
+
+        <div class="kicker">
+            Revisión de riesgos
+        </div>
+
+        <h2 class="section-title">
+            Escáner de red flags
+        </h2>
+
+        <p class="section-subtitle">
+            No se trata de fingir que nunca hubo
+            una conducta cuestionable.
+            Se trata de revisar qué ocurrió después.
+        </p>
+
+
+        <div class="redflags-grid">
+
+            <div class="flag-card">
+
+                <div class="flag-icon">
+                    🚩
+                </div>
+
+                <div class="flag-title">
+                    Coqueteaba con otras chicas
+                </div>
+
+                <div class="flag-status">
+                    Sí ocurrió al principio.
+                    No se niega.
+                </div>
+
+                <div class="flag-badge">
+                    ERROR RECONOCIDO
+                </div>
+
+            </div>
+
+
+            <div class="flag-card">
+
+                <div class="flag-icon">
+                    🛑
+                </div>
+
+                <div class="flag-title">
+                    Continuó después del pacto
+                </div>
+
+                <div class="flag-status">
+                    Según la defensa presentada:
+                    no. La conducta se detuvo.
+                </div>
+
+                <div class="flag-badge">
+                    CONDUCTA CORREGIDA
+                </div>
+
+            </div>
+
+
+            <div class="flag-card">
+
+                <div class="flag-icon">
+                    🤝
+                </div>
+
+                <div class="flag-title">
+                    Incumplimiento del pacto
+                </div>
+
+                <div class="flag-status">
+                    Desde que fue acordado,
+                    ambas partes sostienen que
+                    se ha cumplido.
+                </div>
+
+                <div class="flag-badge">
+                    SIN INCUMPLIMIENTO REPORTADO
+                </div>
+
+            </div>
+
+
+            <div class="flag-card">
+
+                <div class="flag-icon">
+                    👀
+                </div>
+
+                <div class="flag-title">
+                    Conducta controladora
+                </div>
+
+                <div class="flag-status">
+                    No se reporta control sobre
+                    con quién habla, sale o se relaciona.
+                </div>
+
+                <div class="flag-badge">
+                    NO IDENTIFICADA
+                </div>
+
+            </div>
+
+
+            <div class="flag-card">
+
+                <div class="flag-icon">
+                    💬
+                </div>
+
+                <div class="flag-title">
+                    Falta de comunicación
+                </div>
+
+                <div class="flag-status">
+                    Cuando existe un problema,
+                    se conversa y se reconoce.
+                </div>
+
+                <div class="flag-badge">
+                    TRABAJADA
+                </div>
+
+            </div>
+
+
+            <div class="flag-card">
+
+                <div class="flag-icon">
+                    ❤️
+                </div>
+
+                <div class="flag-title">
+                    Desinterés
+                </div>
+
+                <div class="flag-status">
+                    Pregunta cómo está,
+                    observa su ánimo y procura
+                    estar pendiente.
+                </div>
+
+                <div class="flag-badge">
+                    NO IDENTIFICADO
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     VEREDICTO
+===================================================== -->
+
+<section
+    class="content-section"
+    id="verdictSection"
+>
+
+    <div class="container">
+
+        <div class="kicker">
+            Decisión exclusiva de mi amor
+        </div>
+
+        <h2 class="section-title">
+            Veredicto
+        </h2>
+
+
+        <div class="verdict-box">
+
+            <div
+                class="verdict-emoji"
+                id="verdictEmoji"
+            >
+                ⚖️
+            </div>
+
+            <div
+                class="verdict-score"
+                id="verdictScore"
+            >
+                0/100
+            </div>
+
+            <div
+                class="verdict-title"
+                id="verdictTitle"
+            >
+                Caso todavía abierto
+            </div>
+
+            <div
+                class="verdict-copy"
+                id="verdictCopy"
+            >
+                La evaluadora todavía no ha terminado
+                de emitir sus calificaciones.
+            </div>
+
+
+            <div class="hero-actions"
+                 style="justify-content:center;">
+
+                <button
+                    class="primary-btn"
+                    id="sentenceBtn"
+                    type="button"
+                >
+                    Emitir sentencia 🏁
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    id="printBtn"
+                    type="button"
+                >
+                    Imprimir expediente
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    id="resetBtn"
+                    type="button"
+                >
+                    Reiniciar evaluación
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="container">
+
+        Presentado respetuosamente ante
+        el Honorable Tribunal de Mi Amor.
+        <br>
+        Ningún Hot Wheel fue sobornado
+        durante la elaboración de esta defensa.
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     MODAL DEFENSA
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="defenseModal"
+>
+
+    <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal-top">
+
+            <div>
+
+                <div
+                    class="kicker"
+                    id="modalKicker"
+                >
+                    Defensa
+                </div>
+
+                <h2
+                    id="modalTitle"
+                ></h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                id="closeModal"
+                type="button"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <p
+            class="section-subtitle"
+            id="modalIntro"
+        ></p>
+
+        <ul
+            class="defense-list"
+            id="modalList"
+        ></ul>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL SENTENCIA
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="sentenceModal"
+>
+
+    <div
+        class="modal sentence-card"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="big-heart">
+            💛
+        </div>
+
+        <div class="kicker">
+            Sentencia final
+        </div>
+
+        <h2>
+            Honorable mi amor:
+        </h2>
+
+        <p
+            style="
+                line-height:1.8;
+                color:var(--muted);
+            "
+        >
+
+            Mi defensa no pretende demostrar que
+            nunca me he equivocado.
+
+            <br><br>
+
+            Pretende demostrar que cuando algo
+            realmente me importa,
+            soy capaz de reconocer un error,
+            escucharte, respetar lo que acordamos
+            y actuar de forma distinta.
+
+            <br><br>
+
+            Todavía nos estamos conociendo.
+            Quedan muchísimas cosas por descubrir
+            uno del otro.
+
+            <br><br>
+
+            Pero si algo quiero que puedas evaluar
+            por ti misma es que, desde que hicimos
+            nuestro pacto, he querido tratarte
+            como alguien especial,
+            no como una opción más.
+
+        </p>
+
+
+        <div
+            class="hotwheels-request"
+            id="finalRequest"
+        >
+            🏎️ Solicitud de reparación:
+            los Hot Wheels que quieras darme
+            de tu corazón.
+        </div>
+
+
+        <div
+            class="hero-actions"
+            style="justify-content:center;"
+        >
+
+            <button
+                class="primary-btn"
+                id="acceptSentence"
+                type="button"
+            >
+                Caso evaluado 💛
+            </button>
+
+            <button
+                class="secondary-btn"
+                id="closeSentence"
+                type="button"
+            >
+                Aún deliberando…
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
+
+const criteria = [
+
+    {
+        id: "evidencias",
+        icon: "🔎",
+        title: "Evidencias válidas",
+        max: 30,
+
+        summary:
+            "Hechos conocidos directamente por la evaluadora, sin necesidad de inventar pruebas.",
+
+        intro:
+            "La defensa se apoya principalmente en situaciones que mi amor puede verificar por experiencia propia.",
+
+        defense: [
+            "Mi amor sabe cómo la trato cuando estamos juntos.",
+            "Puede confirmar que estoy pendiente de cómo está y de su ánimo.",
+            "Puede confirmar que la ayudé con un examen en el que obtuvo 100.",
+            "Conoce de primera mano que existió una conversación seria sobre nuestros límites.",
+            "Puede confirmar que existe un pacto aceptado por ambos.",
+            "Puede evaluar por sí misma si mi conducta cambió después de ese acuerdo."
+        ]
+    },
+
+    {
+        id: "trato",
+        icon: "🤍",
+        title: "Trato y respeto",
+        max: 15,
+
+        summary:
+            "Caballerosidad, consideración y respeto hacia ella y hacia las personas importantes para ella.",
+
+        intro:
+            "Ser atento no consiste únicamente en decir cosas bonitas; también se refleja en comportamientos cotidianos.",
+
+        defense: [
+            "Procuro ser caballeroso con ella.",
+            "Estoy pendiente de cómo se siente y noto cambios en su ánimo.",
+            "Le pregunto cómo está tanto personalmente como por WhatsApp.",
+            "Cuando está triste o cansada intento escucharla y acompañarla.",
+            "He respetado los límites que me comunicó.",
+            "Mi trato con su mamá fue respetuoso y cercano.",
+            "Me llevo bien con sus hermanos y comparto con ellos con naturalidad."
+        ]
+    },
+
+    {
+        id: "acciones",
+        icon: "🫶",
+        title: "Buenas acciones",
+        max: 15,
+
+        summary:
+            "Acciones concretas que muestran consideración, ayuda y disposición real.",
+
+        intro:
+            "Todavía nos conocemos desde hace poco, por lo que no ha existido una gran cantidad de situaciones importantes.",
+
+        defense: [
+            "La ayudé con un examen y obtuvo 100.",
+            "Cuando necesita apoyo procuro escucharla antes de imponer soluciones.",
+            "Si algo le preocupa intento analizar el problema junto a ella.",
+            "He buscado estar pendiente incluso cuando no existe una acción grande que realizar.",
+            "No voy a inventar buenas acciones que todavía no han ocurrido únicamente para sumar puntos."
+        ]
+    },
+
+    {
+        id: "argumentacion",
+        icon: "⚖️",
+        title: "Argumentación",
+        max: 10,
+
+        summary:
+            "Por qué estas conductas sí dicen algo sobre la persona que quiero ser con ella.",
+
+        intro:
+            "Mi definición de ser un buen hombre se basa especialmente en respeto, atención y capacidad de corregirse.",
+
+        defense: [
+            "Ser un buen hombre no significa no equivocarse nunca.",
+            "Para mí significa tratar bien a una chica, respetarla y ser considerado.",
+            "Cuando existe un error, reconocerlo y cambiar importa más que intentar esconderlo.",
+            "El cambio después de nuestra conversación tiene más valor que una promesa hecha únicamente para quedar bien.",
+            "Quiero que ella pueda confiar en mí por mis acciones y no solamente porque yo diga que puede hacerlo."
+        ]
+    },
+
+    {
+        id: "coherencia",
+        icon: "🧩",
+        title: "Coherencia",
+        max: 10,
+
+        summary:
+            "Que lo que digo ahora coincida con mi comportamiento después de nuestro acuerdo.",
+
+        intro:
+            "La defensa no sería coherente si negara aquello que ocurrió antes.",
+
+        defense: [
+            "Reconozco que al principio coqueteaba con otras chicas.",
+            "Reconozco que eso generó una mala impresión válida.",
+            "Después de hablarlo acordamos límites claros.",
+            "Acepté esos límites voluntariamente.",
+            "Desde el pacto dejé la conducta que había generado el problema.",
+            "Lo que digo querer demostrar ahora coincide con ese cambio."
+        ]
+    },
+
+    {
+        id: "responsabilidad",
+        icon: "🤝",
+        title: "Responsabilidad",
+        max: 10,
+
+        summary:
+            "Reconocer errores, cumplir compromisos y asumir las consecuencias de lo que uno hace.",
+
+        intro:
+            "Este punto probablemente sea uno de los más importantes de la defensa.",
+
+        defense: [
+            "Cuando ella me expresó su incomodidad no intenté invalidarla.",
+            "Reconocí que había cometido un error.",
+            "Le pedí disculpas.",
+            "Acepté límites claros.",
+            "Aceptamos un pacto mutuo.",
+            "Desde entonces he cumplido ese pacto.",
+            "No pretendo exigir confianza; quiero construirla."
+        ]
+    },
+
+    {
+        id: "redflags",
+        icon: "🚦",
+        title: "Ausencia de red flags",
+        max: 5,
+
+        summary:
+            "Evaluación honesta de las conductas cuestionables y de si continúan presentes.",
+
+        intro:
+            "Existe una conducta inicial cuestionable y ocultarla sería peor que reconocerla.",
+
+        defense: [
+            "Sí existió coqueteo con otras chicas al principio.",
+            "La conducta fue reconocida.",
+            "Se habló directamente.",
+            "Se establecieron límites.",
+            "Desde el pacto esa conducta se detuvo.",
+            "No hay intención de controlar con quién habla ella.",
+            "No existe reporte de incumplimiento del pacto desde que fue acordado."
+        ]
+    },
+
+    {
+        id: "presentacion",
+        icon: "🏎️",
+        title: "Presentación del caso",
+        max: 5,
+
+        summary:
+            "Creatividad, organización y una cantidad absolutamente razonable de esfuerzo para conseguir carritos.",
+
+        intro:
+            "Su señoría está actualmente evaluando este criterio dentro de una página web interactiva.",
+
+        defense: [
+            "Se construyó un expediente organizado según los ocho criterios oficiales.",
+            "La evaluadora conserva control total del puntaje.",
+            "Existe una reconstrucción cronológica del caso.",
+            "Existe contrainterrogatorio.",
+            "Existe análisis de red flags.",
+            "Existe veredicto dinámico.",
+            "Y sí: todo esto se hizo por Hot Wheels."
+        ]
+    }
+
+];
+
+
+const facts = [
+
+    "Me ayudó con un examen y saqué 100.",
+
+    "Cuando estoy triste o cansada suele estar pendiente de cómo me siento.",
+
+    "Me pregunta cómo estoy y presta atención a mi ánimo.",
+
+    "Cuando le dije que algo me incomodaba, me escuchó.",
+
+    "Me pidió disculpas por la situación de las otras chicas.",
+
+    "Los dos hablamos y aceptamos el pacto.",
+
+    "Desde el pacto dejó la conducta que había causado el problema.",
+
+    "Ha sido respetuoso y amable con mi mamá.",
+
+    "Se lleva bien con mis hermanos.",
+
+    "No intenta controlar con quién hablo o qué hago."
+
+];
+
+
+const questions = [
+
+    {
+        q:
+            "Si hablabas con otras chicas, ¿por qué no debería pensar que eres un perro?",
+
+        a:
+            "Porque negar lo que ocurrió sería incoherente. Al inicio sí coqueteaba con otras chicas y entiendo por qué eso te dio esa impresión. Mi defensa no está en decir que nunca pasó, sino en lo que hice después de que entendí cómo te hacía sentir: lo reconocí, te pedí disculpas, acordamos límites y dejé esa conducta."
+    },
+
+    {
+        q:
+            "¿Por qué debería confiar en que no volverás a hacerme sentir como una opción más?",
+
+        a:
+            "No creo que debas confiar únicamente porque yo te lo pida. Prefiero que lo evalúes por cómo actúo. Tenemos un pacto claro y, desde que lo hicimos, lo he respetado. Quiero que la confianza venga de la constancia."
+    },
+
+    {
+        q:
+            "Pero ni siquiera somos novios. ¿Por qué tendría que importarte tanto el pacto?",
+
+        a:
+            "Precisamente porque no necesito un título para respetar algo que acepté contigo. Los dos decidimos que ninguno quería sentirse como una segunda opción. Si acepté ese acuerdo, para mí corresponde cumplirlo."
+    },
+
+    {
+        q:
+            "¿Entonces estás diciendo que ahora eres perfecto?",
+
+        a:
+            "No. Y tampoco quiero defenderme fingiendo eso. Me he equivocado y probablemente vuelva a equivocarme en otras cosas. Lo que sí quiero demostrar es que puedo reconocer una conducta que estuvo mal y cambiarla cuando entiendo su impacto."
+    },
+
+    {
+        q:
+            "¿Qué demuestra realmente que seas caballeroso conmigo?",
+
+        a:
+            "No creo que abrir una puerta por sí solo demuestre quién soy. Es el conjunto: preocuparme por cómo estás, escucharte, tratarte con respeto, ser considerado contigo, acompañarte, respetar tus límites y tratar bien a las personas que son importantes para ti."
+    },
+
+    {
+        q:
+            "¿Todo esto lo estás haciendo únicamente para conseguir Hot Wheels?",
+
+        a:
+            "El tribunal reconoce un evidente conflicto de interés. Quiero muchísimo los Hot Wheels 😂. Pero las cosas de las que estoy hablando ocurrieron antes de esta página. Los carritos son el incentivo para presentar la defensa; no son la razón por la que te respeto."
+    }
+
+];
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let scoreState = {};
+
+let confirmedFacts = {};
+
+let soundEnabled = true;
+
+let questionIndex = 0;
+
+let adrianAccepted = false;
+
+let micaAccepted = false;
+
+let carClickCount = 0;
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function loadState() {
+
+    try {
+
+        const storedScores =
+            localStorage.getItem(
+                "hotwheels-scores"
+            );
+
+        const storedFacts =
+            localStorage.getItem(
+                "hotwheels-facts"
+            );
+
+        const storedTheme =
+            localStorage.getItem(
+                "hotwheels-theme"
+            );
+
+
+        if (storedScores) {
+            scoreState =
+                JSON.parse(storedScores);
+        }
+
+
+        if (storedFacts) {
+            confirmedFacts =
+                JSON.parse(storedFacts);
+        }
+
+
+        if (storedTheme === "dark") {
+
+            document.body.classList.add(
+                "dark"
+            );
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "No se pudo recuperar estado.",
+            error
+        );
+
+    }
+
+}
+
+
+function saveState() {
+
+    try {
+
+        localStorage.setItem(
+            "hotwheels-scores",
+            JSON.stringify(scoreState)
+        );
+
+        localStorage.setItem(
+            "hotwheels-facts",
+            JSON.stringify(confirmedFacts)
+        );
+
+    }
+    catch (error) {
+
+        console.warn(
+            "No se pudo guardar estado.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER CRITERIOS
+========================================================= */
+
+function renderCriteria() {
+
+    const grid =
+        document.getElementById(
+            "criteriaGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    criteria.forEach(
+        criterion => {
+
+            const score =
+                Number(
+                    scoreState[
+                        criterion.id
+                    ] || 0
+                );
+
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "criterion-card";
+
+
+            card.innerHTML = `
+
+                <div class="criterion-top">
+
+                    <div class="criterion-icon">
+                        ${criterion.icon}
+                    </div>
+
+                    <div class="criterion-title-wrap">
+
+                        <h3 class="criterion-title">
+                            ${criterion.title}
+                        </h3>
+
+                        <div class="criterion-max">
+                            Máximo:
+                            ${criterion.max}
+                            puntos
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="criterion-summary">
+                    ${criterion.summary}
+                </div>
+
+
+                <div class="score-control">
+
+                    <button
+                        type="button"
+                        class="minus-btn"
+                        aria-label="Restar punto"
+                    >
+                        −
+                    </button>
+
+
+                    <input
+                        type="range"
+                        min="0"
+                        max="${criterion.max}"
+                        value="${score}"
+                        step="1"
+                        aria-label="Puntaje ${criterion.title}"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="plus-btn"
+                        aria-label="Sumar punto"
+                    >
+                        +
+                    </button>
+
+
+                    <div class="criterion-score">
+                        <span class="value">
+                            ${score}
+                        </span>
+                        /${criterion.max}
+                    </div>
+
+                </div>
+
+
+                <div class="criterion-actions">
+
+                    <button
+                        type="button"
+                        class="small-btn defense-btn"
+                    >
+                        Ver defensa
+                    </button>
+
+                </div>
+
+            `;
+
+
+            const range =
+                card.querySelector(
+                    'input[type="range"]'
+                );
+
+            const scoreValue =
+                card.querySelector(
+                    ".value"
+                );
+
+
+            function setScore(value) {
+
+                const safeValue =
+                    Math.max(
+                        0,
+                        Math.min(
+                            criterion.max,
+                            Number(value)
+                        )
+                    );
+
+
+                scoreState[
+                    criterion.id
+                ] = safeValue;
+
+
+                range.value =
+                    safeValue;
+
+
+                scoreValue.textContent =
+                    safeValue;
+
+
+                saveState();
+
+                updateTotal();
+
+                beep(
+                    380 +
+                    safeValue * 14,
+                    .025
+                );
+
+            }
+
+
+            range.addEventListener(
+                "input",
+                event => {
+
+                    setScore(
+                        event.target.value
+                    );
+
+                }
+            );
+
+
+            card
+                .querySelector(
+                    ".minus-btn"
+                )
+                .addEventListener(
+                    "click",
+                    () => {
+
+                        setScore(
+                            Number(range.value)
+                            - 1
+                        );
+
+                    }
+                );
+
+
+            card
+                .querySelector(
+                    ".plus-btn"
+                )
+                .addEventListener(
+                    "click",
+                    () => {
+
+                        setScore(
+                            Number(range.value)
+                            + 1
+                        );
+
+                    }
+                );
+
+
+            card
+                .querySelector(
+                    ".defense-btn"
+                )
+                .addEventListener(
+                    "click",
+                    () => {
+
+                        openDefense(
+                            criterion
+                        );
+
+                    }
+                );
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   HECHOS
+========================================================= */
+
+function renderFacts() {
+
+    const board =
+        document.getElementById(
+            "factBoard"
+        );
+
+
+    board.innerHTML = "";
+
+
+    facts.forEach(
+        (fact, index) => {
+
+            const confirmed =
+                Boolean(
+                    confirmedFacts[index]
+                );
+
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "fact";
+
+
+            card.innerHTML = `
+
+                <div class="fact-number">
+                    HECHO
+                    ${String(index + 1).padStart(2,"0")}
+                </div>
+
+                <div class="fact-text">
+                    ${fact}
+                </div>
+
+                <button
+                    type="button"
+                    class="
+                        confirm-fact
+                        ${confirmed ? "confirmed" : ""}
+                    "
+                >
+
+                    ${
+                        confirmed
+                        ? "✓ Confirmado por mi amor"
+                        : "¿Confirmas que pasó?"
+                    }
+
+                </button>
+
+            `;
+
+
+            const button =
+                card.querySelector(
+                    ".confirm-fact"
+                );
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    confirmedFacts[index] =
+                        !confirmedFacts[index];
+
+
+                    saveState();
+
+                    renderFacts();
+
+                    updateTotal();
+
+
+                    if (
+                        confirmedFacts[index]
+                    ) {
+
+                        beep(
+                            620,
+                            .05
+                        );
+
+                    }
+
+                }
+            );
+
+
+            board.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+function getTotalScore() {
+
+    return criteria.reduce(
+        (total, criterion) => {
+
+            return (
+                total +
+                Number(
+                    scoreState[
+                        criterion.id
+                    ] || 0
+                )
+            );
+
+        },
+        0
+    );
+
+}
+
+
+function getConfirmedFacts() {
+
+    return Object.values(
+        confirmedFacts
+    )
+    .filter(Boolean)
+    .length;
+
+}
+
+
+function updateTotal() {
+
+    const total =
+        getTotalScore();
+
+
+    const confirmed =
+        getConfirmedFacts();
+
+
+    document.getElementById(
+        "totalScore"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "verdictScore"
+    ).textContent =
+        `${total}/100`;
+
+
+    document.getElementById(
+        "scoreRing"
+    )
+    .style
+    .setProperty(
+        "--score",
+        total
+    );
+
+
+    const car =
+        document.getElementById(
+            "hotWheelCar"
+        );
+
+
+    const carPosition =
+        Math.min(
+            total,
+            94
+        );
+
+
+    car.style.left =
+        `calc(${carPosition}% - 15px)`;
+
+
+    updateVerdict(
+        total,
+        confirmed
+    );
+
+}
+
+
+/* =========================================================
+   VEREDICTO DINÁMICO
+========================================================= */
+
+function updateVerdict(
+    total,
+    confirmed
+) {
+
+    const liveVerdict =
+        document.getElementById(
+            "liveVerdict"
+        );
+
+    const liveDetail =
+        document.getElementById(
+            "liveDetail"
+        );
+
+    const title =
+        document.getElementById(
+            "verdictTitle"
+        );
+
+    const copy =
+        document.getElementById(
+            "verdictCopy"
+        );
+
+    const emoji =
+        document.getElementById(
+            "verdictEmoji"
+        );
+
+
+    let verdictText;
+    let detail;
+    let verdictTitle;
+    let verdictCopy;
+    let verdictEmoji;
+
+
+    if (total === 0) {
+
+        verdictText =
+            "La audiencia todavía no comienza.";
+
+        detail =
+            "Mi amor tiene control absoluto del puntaje. La defensa no puede autoaprobarse.";
+
+        verdictTitle =
+            "Caso todavía abierto";
+
+        verdictCopy =
+            "La evaluadora todavía no ha terminado de emitir sus calificaciones.";
+
+        verdictEmoji =
+            "⚖️";
+
+    }
+
+    else if (total < 50) {
+
+        verdictText =
+            "La defensa está en problemas 😭";
+
+        detail =
+            "El acusado solicita respetuosamente una revisión exhaustiva del expediente.";
+
+        verdictTitle =
+            "La fiscalía va ganando";
+
+        verdictCopy =
+            "El puntaje actual no respalda todavía una sentencia favorable para los Hot Wheels.";
+
+        verdictEmoji =
+            "🐶";
+
+    }
+
+    else if (total < 70) {
+
+        verdictText =
+            "Existe esperanza jurídica.";
+
+        detail =
+            "El caso está bastante más discutido de lo que parecía al inicio.";
+
+        verdictTitle =
+            "Caso en deliberación";
+
+        verdictCopy =
+            "La defensa ha presentado argumentos relevantes, pero la jueza todavía tiene motivos para analizar.";
+
+        verdictEmoji =
+            "🤔";
+
+    }
+
+    else if (total < 85) {
+
+        verdictText =
+            "La defensa está convenciendo al tribunal 👀";
+
+        detail =
+            "El acusado empieza a acercarse peligrosamente a la zona de los carritos.";
+
+        verdictTitle =
+            "Buen hombre: evidencia favorable";
+
+        verdictCopy =
+            "El comportamiento evaluado muestra suficientes elementos positivos para reconsiderar seriamente la acusación inicial.";
+
+        verdictEmoji =
+            "😌";
+
+    }
+
+    else if (total < 95) {
+
+        verdictText =
+            "SE ACERCA A LOS HOT WHEELS 🏎️";
+
+        detail =
+            "La evidencia evaluada está siendo muy favorable para la defensa.";
+
+        verdictTitle =
+            "Sentencia altamente favorable";
+
+        verdictCopy =
+            "Con este puntaje, la acusación de perro queda considerablemente debilitada.";
+
+        verdictEmoji =
+            "🏎️";
+
+    }
+
+    else {
+
+        verdictText =
+            "SU SEÑORÍA, TENEMOS UN CASO 🏁";
+
+        detail =
+            "El acusado humildemente solicita que se abra el departamento de Hot Wheels.";
+
+        verdictTitle =
+            "ABSOLUCIÓN ROMÁNTICA";
+
+        verdictCopy =
+            "La jueza ha otorgado una calificación extraordinariamente alta. La defensa solicita que los carritos sean considerados con cariño y sin presión alguna.";
+
+        verdictEmoji =
+            "💛";
+
+    }
+
+
+    liveVerdict.textContent =
+        verdictText;
+
+
+    liveDetail.textContent =
+        `${detail} · Hechos confirmados directamente por mi amor: ${confirmed}/${facts.length}.`;
+
+
+    title.textContent =
+        verdictTitle;
+
+
+    copy.textContent =
+        verdictCopy;
+
+
+    emoji.textContent =
+        verdictEmoji;
+
+}
+
+
+/* =========================================================
+   MODAL DEFENSA
+========================================================= */
+
+const defenseModal =
+    document.getElementById(
+        "defenseModal"
+    );
+
+
+function openDefense(
+    criterion
+) {
+
+    document.getElementById(
+        "modalKicker"
+    ).textContent =
+        `Criterio · ${criterion.max} puntos`;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        criterion.title;
+
+
+    document.getElementById(
+        "modalIntro"
+    ).textContent =
+        criterion.intro;
+
+
+    const list =
+        document.getElementById(
+            "modalList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    criterion.defense.forEach(
+        item => {
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+            li.textContent =
+                item;
+
+            list.appendChild(
+                li
+            );
+
+        }
+    );
+
+
+    defenseModal.classList.add(
+        "open"
+    );
+
+}
+
+
+function closeDefense() {
+
+    defenseModal.classList.remove(
+        "open"
+    );
+
+}
+
+
+document.getElementById(
+    "closeModal"
+)
+.addEventListener(
+    "click",
+    closeDefense
+);
+
+
+defenseModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            defenseModal
+        ) {
+
+            closeDefense();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PACTO
+========================================================= */
+
+document.getElementById(
+    "adrianAccept"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        adrianAccepted =
+            !adrianAccepted;
+
+
+        updatePact();
+
+    }
+);
+
+
+document.getElementById(
+    "micaAccept"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        micaAccepted =
+            !micaAccepted;
+
+
+        updatePact();
+
+    }
+);
+
+
+function updatePact() {
+
+    const aButton =
+        document.getElementById(
+            "adrianAccept"
+        );
+
+    const mButton =
+        document.getElementById(
+            "micaAccept"
+        );
+
+
+    aButton.classList.toggle(
+        "accepted",
+        adrianAccepted
+    );
+
+
+    mButton.classList.toggle(
+        "accepted",
+        micaAccepted
+    );
+
+
+    aButton.textContent =
+        adrianAccepted
+        ? "✓ Adrián reconoce el pacto"
+        : "Adrián reconoce el pacto";
+
+
+    mButton.textContent =
+        micaAccepted
+        ? "✓ Mi amor reconoce el pacto"
+        : "Mi amor reconoce el pacto";
+
+
+    document.getElementById(
+        "adrianStatus"
+    ).textContent =
+        adrianAccepted
+        ? "Pacto reconocido ✓"
+        : "Pendiente de reconocimiento";
+
+
+    document.getElementById(
+        "micaStatus"
+    ).textContent =
+        micaAccepted
+        ? "Pacto reconocido ✓"
+        : "Pendiente de reconocimiento";
+
+
+    const seal =
+        document.getElementById(
+            "pactSeal"
+        );
+
+
+    if (
+        adrianAccepted &&
+        micaAccepted
+    ) {
+
+        seal.classList.add(
+            "active"
+        );
+
+        showToast(
+            "🤝 Pacto reconocido por ambas partes."
+        );
+
+        confetti(
+            45
+        );
+
+        beep(
+            740,
+            .08
+        );
+
+    }
+    else {
+
+        seal.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   INTERROGATORIO
+========================================================= */
+
+function showQuestion() {
+
+    const current =
+        questions[
+            questionIndex
+        ];
+
+
+    document.getElementById(
+        "questionCounter"
+    ).textContent =
+        `Pregunta ${questionIndex + 1} de ${questions.length}`;
+
+
+    document.getElementById(
+        "questionText"
+    ).textContent =
+        current.q;
+
+
+    document.getElementById(
+        "answerText"
+    ).textContent =
+        "La respuesta permanece sellada hasta que mi amor decida verla.";
+
+}
+
+
+document.getElementById(
+    "revealAnswer"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        const current =
+            questions[
+                questionIndex
+            ];
+
+
+        document.getElementById(
+            "answerText"
+        ).textContent =
+            current.a;
+
+
+        beep(
+            520,
+            .04
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "nextQuestion"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        questionIndex =
+            (
+                questionIndex + 1
+            )
+            %
+            questions.length;
+
+
+        showQuestion();
+
+    }
+);
+
+
+/* =========================================================
+   SENTENCIA
+========================================================= */
+
+const sentenceModal =
+    document.getElementById(
+        "sentenceModal"
+    );
+
+
+document.getElementById(
+    "sentenceBtn"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        const score =
+            getTotalScore();
+
+
+        document.getElementById(
+            "finalRequest"
+        ).innerHTML =
+            `
+            Puntaje otorgado:
+            <strong>${score}/100</strong>
+
+            <br><br>
+
+            🏎️ Solicitud de reparación:
+
+            <br>
+
+            <strong>
+                los Hot Wheels que quieras darme
+                de tu corazón.
+            </strong>
+            `;
+
+
+        sentenceModal.classList.add(
+            "open"
+        );
+
+
+        if (score >= 75) {
+
+            confetti(
+                80
+            );
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "closeSentence"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        sentenceModal.classList.remove(
+            "open"
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "acceptSentence"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        confetti(
+            160
+        );
+
+
+        showToast(
+            "💛 El Tribunal ha concluido su evaluación."
+        );
+
+
+        beep(
+            880,
+            .1
+        );
+
+    }
+);
+
+
+sentenceModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            sentenceModal
+        ) {
+
+            sentenceModal.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+document.getElementById(
+    "themeBtn"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "dark"
+        );
+
+
+        const dark =
+            document.body.classList.contains(
+                "dark"
+            );
+
+
+        document.getElementById(
+            "themeBtn"
+        ).textContent =
+            dark
+            ? "☀️"
+            : "🌙";
+
+
+        try {
+
+            localStorage.setItem(
+                "hotwheels-theme",
+                dark
+                ? "dark"
+                : "light"
+            );
+
+        }
+        catch (error) {}
+
+    }
+);
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+document.getElementById(
+    "soundBtn"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        soundEnabled =
+            !soundEnabled;
+
+
+        document.getElementById(
+            "soundBtn"
+        ).textContent =
+            soundEnabled
+            ? "🔊"
+            : "🔇";
+
+    }
+);
+
+
+function beep(
+    frequency = 500,
+    duration = .05
+) {
+
+    if (!soundEnabled) {
+        return;
+    }
+
+
+    try {
+
+        const AudioContextClass =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+
+        if (!AudioContextClass) {
+            return;
+        }
+
+
+        const ctx =
+            new AudioContextClass();
+
+
+        const oscillator =
+            ctx.createOscillator();
+
+
+        const gain =
+            ctx.createGain();
+
+
+        oscillator.type =
+            "sine";
+
+
+        oscillator.frequency.value =
+            frequency;
+
+
+        gain.gain.value =
+            .025;
+
+
+        oscillator.connect(
+            gain
+        );
+
+
+        gain.connect(
+            ctx.destination
+        );
+
+
+        oscillator.start();
+
+
+        oscillator.stop(
+            ctx.currentTime +
+            duration
+        );
+
+
+        oscillator.addEventListener(
+            "ended",
+            () => ctx.close()
+        );
+
+    }
+    catch (error) {}
+
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+function confetti(
+    amount = 70
+) {
+
+    const colors = [
+        "#e1ad54",
+        "#d98787",
+        "#6ba67a",
+        "#6a89b8",
+        "#f0d18c",
+        "#ffffff"
+    ];
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        const piece =
+            document.createElement(
+                "div"
+            );
+
+
+        piece.className =
+            "confetti";
+
+
+        piece.style.left =
+            `${Math.random() * 100}%`;
+
+
+        piece.style.background =
+            colors[
+                Math.floor(
+                    Math.random()
+                    *
+                    colors.length
+                )
+            ];
+
+
+        piece.style.animationDuration =
+            `${
+                2.5 +
+                Math.random() * 2
+            }s`;
+
+
+        piece.style.opacity =
+            .6 +
+            Math.random() * .4;
+
+
+        piece.style.transform =
+            `rotate(${
+                Math.random() * 360
+            }deg)`;
+
+
+        document.body.appendChild(
+            piece
+        );
+
+
+        setTimeout(
+            () => piece.remove(),
+            5000
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(
+    message
+) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2700
+        );
+
+}
+
+
+/* =========================================================
+   BOTONES NAVEGACIÓN
+========================================================= */
+
+document.getElementById(
+    "startTrial"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        document.getElementById(
+            "evaluation"
+        )
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+
+        showToast(
+            "⚖️ La audiencia queda formalmente abierta."
+        );
+
+        beep(
+            450,
+            .07
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "jumpPact"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        document.getElementById(
+            "pactSection"
+        )
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+);
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+document.getElementById(
+    "printBtn"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        window.print();
+
+    }
+);
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+document.getElementById(
+    "resetBtn"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        const confirmed =
+            window.confirm(
+                "¿Reiniciar todos los puntajes y confirmaciones?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        scoreState = {};
+
+        confirmedFacts = {};
+
+
+        try {
+
+            localStorage.removeItem(
+                "hotwheels-scores"
+            );
+
+            localStorage.removeItem(
+                "hotwheels-facts"
+            );
+
+        }
+        catch (error) {}
+
+
+        renderCriteria();
+
+        renderFacts();
+
+        updateTotal();
+
+
+        showToast(
+            "Evaluación reiniciada."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   EASTER EGG DEL CARRITO
+========================================================= */
+
+document.getElementById(
+    "hotWheelCar"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        carClickCount++;
+
+
+        beep(
+            550 +
+            carClickCount * 70,
+            .04
+        );
+
+
+        if (carClickCount === 3) {
+
+            showToast(
+                "👀 ¿Por qué sigues tocando el carrito?"
+            );
+
+        }
+
+
+        if (carClickCount === 5) {
+
+            confetti(
+                100
+            );
+
+
+            showToast(
+                "🏎️ LOGRO DESBLOQUEADO: obsesión comprobada con los Hot Wheels."
+            );
+
+
+            carClickCount = 0;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESCAPE PARA CERRAR MODALES
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeDefense();
+
+            sentenceModal.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INICIO
+========================================================= */
+
+loadState();
+
+renderCriteria();
+
+renderFacts();
+
+showQuestion();
+
+updateTotal();
+
+
+if (
+    document.body.classList.contains(
+        "dark"
+    )
+) {
+
+    document.getElementById(
+        "themeBtn"
+    ).textContent =
+        "☀️";
+
+}
+</script>
+
+</body>
+</html>
